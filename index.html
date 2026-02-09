@@ -82,7 +82,7 @@
 
         /* --- LAYOUT --- */
         header {
-            padding: 20px 30px;
+            padding: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -93,28 +93,21 @@
             backdrop-filter: blur(10px);
         }
 
-        .logo { font-size: 24px; font-weight: 900; letter-spacing: 5px; color: var(--text-color); }
+        .logo { font-size: 28px; font-weight: 900; letter-spacing: 5px; color: var(--text-color); }
         .logo span { color: var(--cyan); }
 
         .hero {
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
-            flex-direction: column; /* Mobile first : colonne */
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 100px 20px 20px 20px;
+            padding: 20px;
             position: relative;
         }
 
-        .hero-content {
-            z-index: 2;
-            max-width: 600px;
-            margin-bottom: 40px;
-        }
-
         .hero-content h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: 20px;
@@ -127,86 +120,38 @@
         }
 
         .hero-content p {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: rgba(255,255,255,0.7);
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             opacity: 0;
             animation: fadeUp 1s forwards 0.8s;
         }
 
-        /* --- DYNAMIC DESCRIPTION TEXT --- */
-        .dynamic-text-container {
-            margin-top: 30px;
-            height: 80px; /* Hauteur fixe pour éviter le saut */
-            position: relative;
-            opacity: 0;
-            animation: fadeUp 1s forwards 1.3s;
-        }
-
-        .desc-slide {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease;
-            transform: translateY(10px);
-            color: var(--cyan);
-            font-weight: 600;
-            font-size: 14px;
-            line-height: 1.4;
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
-        }
-
-        .desc-slide.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- PHONE MOCKUP --- */
+        /* --- PHONE MOCKUP & SLIDESHOW --- */
         .mockup-container {
             position: relative;
-            width: 260px; /* Taille mobile */
-            height: 520px;
-            border-radius: 35px;
+            width: 300px;
+            height: 600px;
+            margin: 50px auto;
+            border-radius: 40px;
             border: 4px solid var(--glass-border);
-            background: #051025;
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+            background: #051025; /* Couleur de fond de l'app */
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.2);
             overflow: hidden;
-            display: block; /* Visible sur mobile maintenant ! */
-            flex-shrink: 0;
-            margin-top: 20px;
+            display: none;
         }
         
-        /* Desktop Layout */
-        @media(min-width: 1024px) {
-            .hero { 
-                flex-direction: row; 
-                justify-content: space-between; 
-                text-align: left; 
-                padding: 0 10%; 
-                height: 100vh;
-            }
-            .hero-content { margin-bottom: 0; margin-right: 50px; }
-            .mockup-container { 
-                width: 300px; height: 600px; 
-                transform: rotate(-5deg) translateY(20px); 
-                animation: float 6s ease-in-out infinite;
-                margin-top: 0;
-            }
-            .dynamic-text-container { text-align: left; }
-        }
-
         /* Slideshow logic inside phone */
         .app-screen {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             opacity: 0;
-            transition: opacity 0.8s ease-in-out;
+            transition: opacity 1s ease-in-out;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            pointer-events: none;
+            pointer-events: none; /* Juste visuel */
         }
         
         .app-screen.active { opacity: 1; }
@@ -274,9 +219,14 @@
         }
         .game-icon { width: 40px; height: 40px; border-radius: 50%; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;}
 
+        
+        @media(min-width: 1024px) {
+            .hero { justify-content: space-between; text-align: left; padding: 0 10%; }
+            .mockup-container { display: block; transform: rotate(-5deg) translateY(20px); animation: float 6s ease-in-out infinite; }
+        }
 
         /* --- FEATURES SECTION --- */
-        .features { padding: 80px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 2; }
+        .features { padding: 100px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 2; }
         .feature-icon { font-size: 40px; margin-bottom: 20px; color: var(--cyan); }
         .features h2 { color: var(--gold); margin-bottom: 10px; }
         .features p { color: #ccc; line-height: 1.6; }
@@ -311,28 +261,15 @@
         <div class="hero-content">
             <h1>L'EAU PURE<br>À LA DEMANDE</h1>
             <p>Découvrez la distribution d'eau nouvelle génération.<br>Gagnez des bouteilles, jouez, hydratez-vous.</p>
-            
             <div style="opacity: 0; animation: fadeUp 1s forwards 1.1s;">
                 <a href="#download" class="btn btn-primary">TÉLÉCHARGER</a>
                 <a href="#features" class="btn btn-gold" style="margin-left: 15px; background: transparent; border: 1px solid var(--gold); color: var(--gold); box-shadow: none;">PREMIUM</a>
-            </div>
-
-            <div class="dynamic-text-container">
-                <div class="desc-slide active">
-                    Suivez votre solde de bouteilles disponibles et accédez aux jeux depuis votre tableau de bord personnel.
-                </div>
-                <div class="desc-slide">
-                    Recevez instantanément votre code de retrait unique dès que vous gagnez une bouteille apres les pubs.
-                </div>
-                <div class="desc-slide">
-                    Explorez une immense bibliothèque de jeux variés pour tous les goûts.
-                </div>
             </div>
         </div>
 
         <div class="mockup-container">
             
-            <div class="app-screen active">
+            <div class="app-screen active" id="slide-1">
                 <div class="top-bar">
                     <div>
                         <div style="font-size: 18px; font-weight: bold; color: white;">Bonjour, Bazama 👋</div>
@@ -367,7 +304,7 @@
                 </div>
             </div>
 
-            <div class="app-screen" style="justify-content: center; align-items: center; background: radial-gradient(circle at center, #1a2639, #051025);">
+            <div class="app-screen" id="slide-2" style="justify-content: center; align-items: center; background: radial-gradient(circle at center, #1a2639, #051025);">
                 <div class="success-card">
                     <div class="big-check">✓</div>
                     <h3 style="font-size: 20px; margin-bottom: 5px;">Félicitations !</h3>
@@ -380,7 +317,7 @@
                 </div>
             </div>
 
-            <div class="app-screen">
+            <div class="app-screen" id="slide-3">
                 <div style="position: absolute; top: 50px; left: 20px; font-size: 20px;">‹</div>
                 <div class="arcade-header">ARCADE ZONE</div>
                 
@@ -434,7 +371,7 @@
         <a href="#" class="btn btn-primary">GOOGLE PLAY</a>
         <a href="#" class="btn btn-primary" style="margin-left: 20px; background: #333; box-shadow: none;">APP STORE</a>
         
-        <p style="margin-top: 50px; font-size: 12px; color: rgba(255,255,255,0.3);">© 2026 FALASK Inc.</p>
+        <p style="margin-top: 50px; font-size: 12px; color: rgba(255,255,255,0.3);">© 2024 FALASK Inc. Powered by Flutter.</p>
     </section>
 
     <script>
@@ -492,25 +429,22 @@
         }
         animateWaves();
 
-        // --- SLIDESHOW SYNCHRONISÉ (PHONE + TEXTE) ---
+        // --- SLIDESHOW TELEPHONE (NOUVEAU) ---
         let currentSlide = 0;
-        const phoneSlides = document.querySelectorAll('.app-screen');
-        const textSlides = document.querySelectorAll('.desc-slide');
+        const slides = document.querySelectorAll('.app-screen');
         
         function nextSlide() {
-            // Retirer la classe active
-            phoneSlides[currentSlide].classList.remove('active');
-            textSlides[currentSlide].classList.remove('active');
+            // Retirer la classe active de la slide actuelle
+            slides[currentSlide].classList.remove('active');
             
-            // Calculer index suivant
-            currentSlide = (currentSlide + 1) % phoneSlides.length;
+            // Passer à la suivante (boucle à 0 si on arrive à la fin)
+            currentSlide = (currentSlide + 1) % slides.length;
             
-            // Ajouter la classe active
-            phoneSlides[currentSlide].classList.add('active');
-            textSlides[currentSlide].classList.add('active');
+            // Ajouter la classe active à la nouvelle slide
+            slides[currentSlide].classList.add('active');
         }
 
-        // Changement toutes les 6 secondes
+        // Changer toutes les 6000ms (6 secondes)
         setInterval(nextSlide, 6000);
 
         // --- CURSOR INTERACTIF ---
